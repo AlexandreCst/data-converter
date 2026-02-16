@@ -14,8 +14,8 @@ class DataConverter:
         """
         Method to convert JSON in CSV file
         """
-        path_abs = "month-1-python-tools/projects/data-converter/"
-        path_json = Path(f"{path_abs}{self.file}.json") # Path of the JSON to convert
+        path = "month-1-python-tools/projects/data-converter/"
+        path_json = Path(f"{path}{self.file}.json") # Path of the JSON to convert
         path_csv = Path(f"{filename.lower().strip()}.csv") # Path CSV file
 
         try: # Check if the file exist and if we can open it
