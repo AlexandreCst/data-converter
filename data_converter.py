@@ -4,7 +4,7 @@ import json, csv
 
 class DataConverter:
     """
-    Simple class that is a data converter to convert JSON in CSV and so forth.
+    Simple class that is a data converter to convert JSON in CSV and vice versa.
     """
     def __init__(self, file) -> None:
         """Initialization of class attributes."""
@@ -14,8 +14,7 @@ class DataConverter:
         """
         Method to convert JSON in CSV file
         """
-        path_abs = "month-1-python-tools/"
-        path_abs += "projects/data-converter/"
+        path_abs = "month-1-python-tools/projects/data-converter/"
         path_json = Path(f"{path_abs}{self.file}.json") # Path of the JSON to convert
         path_csv = Path(f"{filename.lower().strip()}.csv") # Path CSV file
 
@@ -33,6 +32,8 @@ class DataConverter:
             return f"Error: {e}", None
         
          
+
+# Tests
 converter = DataConverter("test")
 result, path = converter.json_to_csv("output")
 
