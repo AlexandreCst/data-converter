@@ -11,7 +11,7 @@ class DataConverter:
         self.file = file
         self.path = path
 
-    def json_to_csv(self, filename: str, path: str="") -> tuple:
+    def json_to_csv(self, filename: str, path: str="") -> str:
         """
         Method to convert JSON in CSV file
         """
@@ -26,13 +26,13 @@ class DataConverter:
                     writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
                     writer.writeheader()
                     writer.writerows(data_json)
-                    return "Your CSV file is ready!", path_csv
+                    return f"Find your CSV file here: {path_csv}"
 
         except FileNotFoundError as e: # If we have an error to open the JSON file
-            return f"Error: {e}", None
+            return f"Error: {e}"
         
     
-    def csv_to_json(self, filename: str, path: str="") -> tuple:
+    def csv_to_json(self, filename: str, path: str="") -> str:
         """
         Method to convert CSV in JSON file
         """
@@ -44,7 +44,7 @@ class DataConverter:
                 csv_reader = list(csv.DictReader(csv_file))
                 with path_json.open(mode='w') as json_file:
                     json.dump(csv_reader, fp=json_file, indent=2)
-                    return "Your JSON is ready!", path_json
+                    return f"Find your JSON file here: {path_json}"
         
         except FileNotFoundError as e:
-            return f"Error: {e}", None
+            return f"Error: {e}"
