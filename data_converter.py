@@ -6,17 +6,17 @@ class DataConverter:
     """
     Simple class that is a data converter to convert JSON in CSV and vice versa.
     """
-    def __init__(self, file) -> None:
+    def __init__(self, file: str, path: str="") -> None:
         """Initialization of class attributes."""
         self.file = file
+        self.path = path
 
-    def json_to_csv(self, filename: str):
+    def json_to_csv(self, filename: str, path: str="") -> tuple:
         """
         Method to convert JSON in CSV file
         """
-        path = "month-1-python-tools/projects/data-converter/"
-        path_json = Path(f"{path}{self.file}.json") # Path of the JSON to convert
-        path_csv = Path(f"{filename.lower().strip()}.csv") # Path CSV file
+        path_json = Path(f"{self.path}{self.file}.json") # Path of the JSON to convert
+        path_csv = Path(f"{path}{filename.lower().strip()}.csv") # Path CSV file
 
         try: # Check if the file exist and if we can open it
             with path_json.open(mode='r') as json_file:
@@ -31,11 +31,20 @@ class DataConverter:
         except FileNotFoundError as e: # If we have an error to open the JSON file
             return f"Error: {e}", None
         
-         
+    
+    def csv_to_json(self, filename: str, path: str="") -> tuple:
+        """
+        Method to convert CSV in JSON file
+        """
+        path_csv = Path(f"{self.path}{self.file}.csv") # Path CSV file
+        path_json = Path(f"{path}{filename.lower().strip()}.json") # Path of the JSON to convert
 
-# Tests
-converter = DataConverter("test")
-result, path = converter.json_to_csv("output")
-
-print(result)
-print(f"File created at: {path}")
+        try:
+            with path_csv.open(mode='r') as csv_file:
+                csv_reader = list(csv.DictReader(csv_file))
+                with path_json.open(mode='w') as json_file:
+                    json.dump(csv_reader, fp=json_file, indent=2)
+                    return "Your JSON is ready!", path_json
+        
+        except FileNotFoundError as e:
+            return f"Error: {e}", None
